@@ -100,6 +100,12 @@ impl<'info> CreateDeveloper<'info> {
             &self.system_program.key(),
         )?;
 
+        let collection_seeds: &[&[&[u8]]] = &[&[
+            DEVELOPER_COLLECTION_SEED,
+            &self.developer.key().to_bytes(),
+            &[bumps.developer_collection],
+        ]];
+
         CreateCollectionV2CpiBuilder::new(&self.core_program.to_account_info())
             .collection(&self.developer_collection.to_account_info())
             .payer(&self.developer.to_account_info())
@@ -107,7 +113,7 @@ impl<'info> CreateDeveloper<'info> {
             .system_program(&self.system_program.to_account_info())
             .name(args.company_name.clone())
             .uri(args.collection_uri.clone())
-            .invoke()?;
+            .invoke_signed(collection_seeds)?;
 
         Ok(())
     }

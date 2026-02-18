@@ -61,7 +61,7 @@ pub mod replayer {
 
     #[instruction(discriminator = 7)]
     pub fn buy_game(ctx: Context<BuyGame>, args: BuyGameArgs) -> Result<()> {
-        ctx.accounts.process(&args)
+        ctx.accounts.process(&args, &ctx.bumps)
     }
 
     #[instruction(discriminator = 8)]

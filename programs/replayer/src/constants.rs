@@ -23,5 +23,5 @@ pub const GAME_KEY_ASSET_SEED: &[u8] = b"game_key";
 pub const BLACKLISTED_SEED: &[u8] = b"blacklisted";
 
 // Other
-pub const MAX_GAMEDATA_LENGTH: u64 = 1024 * 1024; // 1MB
+pub const MAX_GAMEDATA_LENGTH: usize = 1024*9; // 9KB
 pub const BASIS_FACTOR: u64 = 10_000;

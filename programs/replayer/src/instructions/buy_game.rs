@@ -37,6 +37,7 @@ pub struct BuyGame<'info> {
     pub developer_account: Account<'info, Developer>,
     /// CHECK: developer collection of games
     #[account(
+        mut,
         constraint = collection.owner == &CORE_ID @ ReplayerErrors::InvalidCollectionOwner,
         constraint = !collection.data_is_empty() @ ReplayerErrors::CollectionNotInitialized,
         seeds = [DEVELOPER_COLLECTION_SEED, args.developer.as_ref()],
@@ -59,7 +60,7 @@ pub struct BuyGame<'info> {
     #[account(
         mut,
         seeds = [GLOBAL_TREASURY_SEED],
-        bump
+        bump = global_config.treasury_bump
     )]
     pub global_treasury: SystemAccount<'info>,
     #[account(
@@ -83,7 +84,7 @@ pub struct BuyGameArgs {
 }
 
 impl<'info> BuyGame<'info> {
-    pub fn process(&mut self, args: &BuyGameArgs) -> Result<()> {
+    pub fn process(&mut self, args: &BuyGameArgs, bumps: &BuyGameBumps) -> Result<()> {
         require!(
             self.game_data.load()?.is_finalized == 1,
             ReplayerErrors::GameNotInitialized
@@ -93,8 +94,21 @@ impl<'info> BuyGame<'info> {
             self.game_metadata.current_supply < self.game_metadata.max_supply,
             ReplayerErrors::GameSupplyReached
         );
-        let mint_asset_signer_seeds: &[&[&[u8]]] =
-            &[&[DEVELOPER_SEED, args.developer.as_ref(), &[self.developer_account.bump]]];
+        let player_key = self.player.key();
+        let mint_asset_signer_seeds: &[&[&[u8]]] = &[
+            &[
+                DEVELOPER_SEED,
+                args.developer.as_ref(),
+                &[self.developer_account.bump],
+            ],
+            &[
+                GAME_KEY_ASSET_SEED,
+                args.developer.as_ref(),
+                args.game_name.as_bytes(),
+                player_key.as_ref(),
+                &[bumps.asset],
+            ],
+        ];
 
         CreateV2CpiBuilder::new(&self.core_program.to_account_info())
             .asset(&self.asset.to_account_info())

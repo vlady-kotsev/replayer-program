@@ -1,5 +1,7 @@
 use anchor_lang::prelude::*;
 
+use crate::constants::MAX_GAMEDATA_LENGTH;
+
 #[account(discriminator = 1)]
 #[derive(InitSpace)]
 pub struct GlobalConfig {
@@ -17,16 +19,15 @@ pub struct Developer {
     pub bump: u8,
 }
 
-#[account(zero_copy, discriminator = 3)]
+#[account(zero_copy(unsafe), discriminator = 3)]
 #[derive(InitSpace)]
-#[repr(C)]
+#[repr(C, packed)]
 pub struct GameData {
     pub write_index: u64,
     pub length: u64,
     pub is_finalized: u8,
     pub bump: u8,
-    pub _padding: [u8; 6],
-    pub data: [u8; 1024 * 1024], // 1MB
+    pub data: [u8; MAX_GAMEDATA_LENGTH],
 }
 
 #[account(discriminator = 4)]

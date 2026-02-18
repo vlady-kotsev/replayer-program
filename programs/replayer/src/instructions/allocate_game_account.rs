@@ -57,7 +57,7 @@ impl<'info> AllocateGameAccount<'info> {
         );
 
         require!(
-            args.game_data_length <= MAX_GAMEDATA_LENGTH,
+            args.game_data_length <= MAX_GAMEDATA_LENGTH as u64,
             ReplayerErrors::GameDataLengthOverflow
         );
         require!(args.game_name.ne(""), ReplayerErrors::InvalidGameName);
