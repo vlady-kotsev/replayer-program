@@ -55,29 +55,37 @@ impl<'info> AllocateGameAccount<'info> {
             !self.blacklisted.is_blacklisted,
             ReplayerErrors::Blacklisted
         );
+        let AllocateGameArgs {
+            game_name,
+            game_hash,
+            game_uri,
+            game_price,
+            max_supply,
+            game_data_length,
+        } = args;
 
         require!(
-            args.game_data_length <= MAX_GAMEDATA_LENGTH as u64,
+            *game_data_length <= MAX_GAMEDATA_LENGTH as u64,
             ReplayerErrors::GameDataLengthOverflow
         );
-        require!(args.game_name.ne(""), ReplayerErrors::InvalidGameName);
-        require!(args.game_price.gt(&0), ReplayerErrors::InvalidGamePrice);
-        require!(args.max_supply.gt(&0), ReplayerErrors::InvalidGameMaxSupply);
+        require!(game_name.ne(""), ReplayerErrors::InvalidGameName);
+        require!(game_price.gt(&0), ReplayerErrors::InvalidGamePrice);
+        require!(max_supply.gt(&0), ReplayerErrors::InvalidGameMaxSupply);
 
         *self.game_metadata = GameMetadata {
-            data_hash: args.game_hash,
+            data_hash: *game_hash,
             developer: self.developer.key(),
-            game_name: args.game_name.clone(),
-            game_uri: args.game_uri.clone(),
-            price: args.game_price,
+            game_name: game_name.clone(),
+            game_uri: game_uri.clone(),
+            price: *game_price,
             current_supply: 0,
-            max_supply: args.max_supply,
+            max_supply: *max_supply,
             bump: bumps.game_metadata,
         };
 
         let mut game_data = self.game_data.load_init()?;
         game_data.bump = bumps.game_data;
-        game_data.length = args.game_data_length;
+        game_data.length = *game_data_length;
 
         Ok(())
     }

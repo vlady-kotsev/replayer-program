@@ -94,17 +94,19 @@ impl<'info> BuyGame<'info> {
             self.game_metadata.current_supply < self.game_metadata.max_supply,
             ReplayerErrors::GameSupplyReached
         );
+
+        let BuyGameArgs {game_name,developer} = args;
         let player_key = self.player.key();
         let mint_asset_signer_seeds: &[&[&[u8]]] = &[
             &[
                 DEVELOPER_SEED,
-                args.developer.as_ref(),
+                developer.as_ref(),
                 &[self.developer_account.bump],
             ],
             &[
                 GAME_KEY_ASSET_SEED,
-                args.developer.as_ref(),
-                args.game_name.as_bytes(),
+                developer.as_ref(),
+                game_name.as_bytes(),
                 player_key.as_ref(),
                 &[bumps.asset],
             ],
