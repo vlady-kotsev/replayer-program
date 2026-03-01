@@ -17,6 +17,7 @@ pub struct FinalizeGameUpload<'info> {
     )]
     pub game_data: AccountLoader<'info, GameData>,
     #[account(
+        mut,
         has_one = developer,
         seeds = [GAME_METADATA_SEED, developer.key().as_ref(), game_metadata.game_name.as_bytes()],
         bump = game_metadata.bump
@@ -53,6 +54,7 @@ impl<'info> FinalizeGameUpload<'info> {
         drop(game_data);
         self.game_data.load_mut()?.is_finalized = 1;
         self.developer_account.games_published += 1;
+        self.game_metadata.is_finalized = true;
 
         Ok(())
     }

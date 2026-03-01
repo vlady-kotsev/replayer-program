@@ -42,6 +42,7 @@ pub struct GameMetadata {
     pub price: u64, // lamports
     pub current_supply: u64,
     pub max_supply: u64,
+    pub is_finalized: bool,
     pub bump: u8,
 }
 

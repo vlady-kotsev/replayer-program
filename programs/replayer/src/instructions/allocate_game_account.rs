@@ -77,6 +77,7 @@ impl<'info> AllocateGameAccount<'info> {
             developer: self.developer.key(),
             game_name: game_name.clone(),
             game_uri: game_uri.clone(),
+            is_finalized: false,
             price: *game_price,
             current_supply: 0,
             max_supply: *max_supply,
