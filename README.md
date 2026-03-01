@@ -87,6 +87,13 @@ npx ts-node scripts/buy_game.ts
 npx ts-node scripts/add_admin.ts
 ```
 
+## Related Repositories
+
+This is part of the **Replayer** project. Check out the other repos:
+
+- [replayer-fe](https://github.com/vlady-kotsev/replayer-fe) — Frontend
+- [replayer-be](https://github.com/vlady-kotsev/replayer-be) — Backend
+
 ## License
 
 MIT
