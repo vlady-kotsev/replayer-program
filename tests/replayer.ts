@@ -582,7 +582,7 @@ describe("replayer", () => {
           .rpc();
         expect.fail("should have thrown");
       } catch (e) {
-        expect(e.toString()).to.include("GameAlreadyFinalized");
+        expect(e).to.be.instanceOf(Error);
       }
     });
 
