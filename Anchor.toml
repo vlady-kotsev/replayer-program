@@ -1,13 +1,13 @@
 [toolchain]
-package_manager = "yarn"
 anchor_version = "0.32.1"
+package_manager = "yarn"
 
 [features]
 resolution = true
 skip-lint = false
 
 [programs.localnet]
-replayer = "3L4ZDN7REkTk97ybn5FS4NUBMmcbQQQjQbKH6kET595c"
+replayer = "28bk4vaL8MfDZ5xbcitXNJjYbiRUaR3mnK21RnAjT8Ya"
 
 [registry]
 url = "https://api.apr.dev"

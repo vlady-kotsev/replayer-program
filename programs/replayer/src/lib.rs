@@ -6,7 +6,7 @@ mod instructions;
 mod state;
 
 pub use instructions::*;
-declare_id!("3L4ZDN7REkTk97ybn5FS4NUBMmcbQQQjQbKH6kET595c");
+declare_id!("28bk4vaL8MfDZ5xbcitXNJjYbiRUaR3mnK21RnAjT8Ya");
 
 #[program]
 pub mod replayer {
