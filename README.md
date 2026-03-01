@@ -1,4 +1,6 @@
-# Replayer
+# Replayer Program
+<img width="200px" src="https://github.com/user-attachments/assets/aee18132-9a95-43ef-9ac6-2103816e4d01" />
+<hr/>
 
 A Solana program for decentralized game distribution and monetization. Developers upload game files, players purchase game keys minted as NFTs via [Metaplex Core](https://developers.metaplex.com/core), and platform fees are split automatically between the platform treasury and developers.
 
