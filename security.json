@@ -1,0 +1,17 @@
+{
+    "name": "Replayer",
+    "logo": "https://github.com/user-attachments/assets/aee18132-9a95-43ef-9ac6-2103816e4d01",
+    "description": "Solana embedded gaming system",
+    "project_url": "https://github.com/vlady-kotsev/replayer-fe",
+    "contacts": [
+        "email:vladygk8@gmail.com",
+        "discord:vladygk"
+    ],
+    "preferred_languages": [
+        "en",
+        "es"
+    ],
+    "encryption": "aes-gcm",
+    "source_code": "https://github.com/vlady-kotsev/replayer-program",
+    "version": "0.1.0"
+}
